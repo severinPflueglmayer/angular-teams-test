@@ -1,0 +1,68 @@
+
+<nav class="sidebar">
+
+    <!-- logo section -->
+    <div class="sidebar-logo">
+        <img class="sidebar-logo-img" src="../../../assets/images/sidebar_logo.png" alt="s2Retro-Logo" width="170px">
+    </div>
+
+    <div class="sidebar-item-section">
+
+        <!-- main menu items -->
+        <div *ngFor="let item of sidebarItems" class="sidebar-item-wrapper">
+
+            <div class="sidebar-item" [class.clicked]="selectedItem === item.name" (click)="onSelectItem(item)">
+                <img class="sidebar-item-img" [src]="item.icon" width="15px" />
+                <p class="sidbar-item-text">{{ item.label }}</p>
+
+                <!-- Show dropdown toggle only for Retro Boards -->
+                <ng-container *ngIf="item.name === 'retroBoards'">
+                    <button style="margin-left: 5px;" class="sidebar-item-button" (click)="toggleDropdown($event)">
+                        <svg class="dropdown-icon" [class.clicked]="dropdownOpen" style="scale: 1.5;" width="30" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g filter="url(#filter0_d_109_19)">
+                            <path d="M20.5 8.25L13 15.75L5.5 8.25" stroke="#B1B1B1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                            <defs>
+                            <filter id="filter0_d_109_19" x="-3" y="0" width="32" height="32" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset dy="4"/>
+                            <feGaussianBlur stdDeviation="2"/>
+                            <feComposite in2="hardAlpha" operator="out"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_109_19"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_109_19" result="shape"/>
+                            </filter>
+                            </defs>
+                        </svg>
+                    </button>
+                    <button class="sidebar-item-button" style="padding-top: 1px; padding-bottom: 4px; margin-left: 42px;">+</button>
+                </ng-container>
+            </div>
+
+            <!-- dynamic board items -->
+            <div *ngIf="item.name === 'retroBoards' && dropdownOpen" class="sidebar-board-item-section">
+                <div *ngFor="let subItem of boardItems" class="sidebar-item" [class.clicked]="selectedItem === subItem.name" (click)="onSelectItem(subItem)">
+                    <div class="board-letter-icon">{{ getFirstLetterCapital(subItem.label) }}</div>
+                    <p class="sidbar-item-text">{{ subItem.label }}</p>
+                </div>
+            </div>
+        </div>
+
+
+
+</div>
+
+
+
+
+    <!-- bottom section -->
+    <div class="sidebar-bottom-section">
+
+        <div class="sidebar-item" style="margin-top: 0px;" [class.clicked]="isSettingsClicked" (click)="settingsClick()">
+            <img class="sidebar-item-img" src="../../../assets/icons/settings_normal.png" width="15px" style="margin-top: 1px">
+            <p class="sidbar-item-text">Settings</p>
+        </div>
+
+    </div>
+</nav>
